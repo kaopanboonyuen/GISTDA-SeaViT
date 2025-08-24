@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SEA-ViT: Sea Surface Currents Forecasting</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f5faff;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #0077b6;
+    }
+    pre {
+      background: #023047;
+      color: #caf0f8;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+    code {
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 600;
+    }
+    a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #0077b6;
+      margin: 2rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      border: 1px solid #0077b6;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    th {
+      background-color: #0096c7;
+      color: white;
+    }
+    blockquote {
+      font-style: italic;
+      color: #555;
+      border-left: 4px solid #0077b6;
+      padding-left: 1rem;
+      margin: 1rem 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem 3rem;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      border-radius: 10px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌊 SEA-ViT: Sea Surface Currents Forecasting with Vision Transformers and GRUs</h1>
+    <blockquote>
+      Official repository for:<br />
+      <strong>"SEA-ViT: Forecasting Sea Surface Currents Using a Vision Transformer and GRU-Based Spatio-Temporal Covariance Model"</strong><br />
+      📌 Accepted at <strong>IEEE KST 2025</strong> | 🔬 Developed by <strong>Teerapong Panboonyuen (Kao)</strong>
+    </blockquote>
+
+    <hr />
+
+    <h2>🚀 Highlights</h2>
+    <ul>
+      <li>✅ <strong>Vision Transformer + BiGRU</strong> for capturing spatio-temporal ocean dynamics.</li>
+      <li>🌐 <strong>Forecasts U/V currents</strong> from HF-radar & ENSO time series.</li>
+      <li>📦 <strong>Modular PyTorch Code</strong> for fast deployment and experimentation.</li>
+      <li>🧠 <strong>30-Year Dataset Ready</strong> — built for long-term environmental forecasting.</li>
+    </ul>
+
+    <hr />
+
+    <h2>🗂️ Project Structure</h2>
+    <pre><code>sea-vit/
+├── src/
+│   ├── model.py         # SEA-ViT Model: ViT + BiGRU
+│   ├── train.py         # Training Pipeline
+│   ├── inference.py     # Run Inference on Radar Sequences
+│   ├── metrics.py       # Evaluation (RMSE, MAE, Corr)
+│   └── utils.py         # Dataset I/O, Preprocessing, Logging
+├── Dockerfile           # Reproducible Environment
+├── requirements.txt     # Python Dependencies
+├── README.md            # Project Overview (this file)
+└── data/                # Example .npz radar data (optional)
+</code></pre>
+
+    <hr />
+
+    <h2>📥 Installation</h2>
+    <p>Install dependencies via pip:</p>
+    <pre><code>git clone https://github.com/kaopanboonyuen/GISTDA-SeaViT.git
+cd GISTDA-SeaViT
+pip install -r requirements.txt
+</code></pre>
+    <p>Or build the full environment via Docker:</p>
+    <pre><code>docker build -t sea-vit .</code></pre>
+
+    <hr />
+
+    <h2>💻 How to Run the Code</h2>
+
+    <h3>🔧 1. Train SEA-ViT on your dataset</h3>
+    <p>Assuming your <code>.npz</code> dataset includes radar sequences + targets:</p>
+    <pre><code>python src/train.py \
+  --data-path ./data/train.npz \
+  --batch-size 8 \
+  --epochs 50 \
+  --lr 1e-4
+</code></pre>
+    <p>
+      <em>Input shape:</em> <code>[N, T, 2, H, W]</code> for sequences<br />
+      <em>Target shape:</em> <code>[N, forecast_steps, 2]</code> for (U, V)
+    </p>
+
+    <h3>🧠 2. Inference on a New Sequence</h3>
+    <pre><code>python src/inference.py \
+  --model-path ./checkpoints/sea-vit.pth \
+  --input-path ./data/sample_input.npz \
+  --output-path ./output/forecast.npy
+</code></pre>
+
+    <h3>📏 3. Evaluate Metrics (RMSE, MAE, Correlation)</h3>
+    <pre><code>python src/metrics.py \
+  --predictions ./output/forecast.npy \
+  --ground-truth ./data/sample_ground_truth.npy
+</code></pre>
+
+    <hr />
+
+    <h2>📈 Results Summary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Value (Example)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RMSE</td>
+          <td><strong>0.087</strong></td>
+        </tr>
+        <tr>
+          <td>MAE</td>
+          <td><strong>0.065</strong></td>
+        </tr>
+        <tr>
+          <td>Corr</td>
+          <td><strong>0.91</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      SEA-ViT demonstrates high accuracy across diverse oceanic conditions, outperforming CNN-GRU and ConvLSTM baselines.
+    </p>
+
+    <hr />
+
+    <h2>📚 Learn More</h2>
+    <ul>
+      <li>📖 <a href="https://kaopanboonyuen.github.io/blog/2024-09-15-sea-vit-sea-surface-currents-forecasting-with-vision-transformers-and-grus/" target="_blank" rel="noopener noreferrer">SEA-ViT Overview (Blog)</a></li>
+      <li>📄 <a href="https://arxiv.org/abs/2409.16313" target="_blank" rel="noopener noreferrer">Paper on arXiv</a></li>
+      <li>📄 <a href="https://ieeexplore.ieee.org/document/11003320/" target="_blank" rel="noopener noreferrer">Paper on IEEE</a></li>
+    </ul>
+
+    <hr />
+
+    <h2>🔬 Citation</h2>
+    <pre><code>@inproceedings{panboonyuen2025sea,
+  title={SEA-ViT: Forecasting Sea Surface Currents Using a Vision Transformer and GRU-Based Spatio-Temporal Covariance Model},
+  author={Panboonyuen, Teerapong},
+  booktitle={2025 17th International Conference on Knowledge and Smart Technology (KST)},
+  pages={1--6},
+  year={2025},
+  organization={IEEE}
+}
+</code></pre>
+
+    <hr />
+
+    <h2>📫 Contact</h2>
+    <p>
+      <strong>Teerapong Panboonyuen (Kao)</strong><br />
+      Postdoctoral Researcher, Chulalongkorn University<br />
+      Senior Research Scientist, MARSAIL<br />
+      📧 <a href="mailto:teerapong.panboonyuen@gmail.com">teerapong.panboonyuen@gmail.com</a>
+    </p>
+
+    <hr />
+
+    <h2>🤝 Contributing</h2>
+    <p>Pull requests welcome! For feature ideas or bug fixes, feel free to open an issue.</p>
+
+    <hr />
+
+    <blockquote>“SEA-ViT doesn’t just see the ocean — it <em>foresees</em> it.” 🌊📡</blockquote>
+
+    <div class="footer">
+      &copy; 2025 Teerapong Panboonyuen
+    </div>
+  </div>
+</body>
+</html>
