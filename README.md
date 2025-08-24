@@ -47,11 +47,13 @@ Detailed usage instructions and example code are provided in the `docs` director
 If you use SEA-ViT in your research, please cite our work:
 
 ```bibtex
-@article{panboonyuen2024SEA-ViT,
-  title={SEA-ViT: Sea Surface Currents Forecasting using Vision Transformers and Bidirectional GRUs},
-  author={Teerapong Panboonyuen},
-  year={2024},
-  url={https://github.com/kaopanboonyuen/gistda-ai-sea-surface-currents}
+@inproceedings{panboonyuen2025sea,
+  title={SEA-ViT: Forecasting Sea Surface Currents Using a Vision Transformer and GRU-Based Spatio-Temporal Covariance Model},
+  author={Panboonyuen, Teerapong},
+  booktitle={2025 17th International Conference on Knowledge and Smart Technology (KST)},
+  pages={1--6},
+  year={2025},
+  organization={IEEE}
 }
 ```
 
