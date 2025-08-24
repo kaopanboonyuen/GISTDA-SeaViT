@@ -107,7 +107,7 @@ SEA-ViT demonstrates high accuracy across diverse oceanic conditions, outperform
 
 ## 📚 Learn More
 
-* 📖 **Blog**: [SEA-ViT Overview](https://kaopanboonyuen.github.io/blog/2024-09-15-sea-vit-sea-surface-currents-forecasting-with-vision-transformers-and-grus/)
+* 📖 **Blog**: [SEA-ViT Overview](https://kaopanboonyuen.github.io/GISTDA-SeaViT/)
 * 📄 **Paper**: [arXiv](https://arxiv.org/abs/2409.16313)
 * 📄 **Paper**: [IEEE](https://ieeexplore.ieee.org/document/11003320/)
 
